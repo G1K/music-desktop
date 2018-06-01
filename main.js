@@ -1,4 +1,6 @@
 const path = require('path');
+const tray = require('./tray');
+
 const { app,
         BrowserWindow,
         globalShortcut } = require('electron');
@@ -26,6 +28,8 @@ app.on('ready', function() {
         app.quit();
     });
 
+	tray.create(mainWindow);
+
     mainWindow.loadURL('https://music.yandex.ru');
 
     showNotifications();
@@ -45,4 +49,16 @@ app.on('ready', function() {
     globalShortcut.register('mediaprevioustrack', function() {
         mainWindow.webContents.send('prev');
     });
+
+	globalShortcut.register('Super+Alt+Right', () => {
+		mainWindow.webContents.send('next');
+	});
+
+	globalShortcut.register('Super+Alt+Left', () => {
+		mainWindow.webContents.send('prev');
+	});
+
+	globalShortcut.register('Super+Alt+Space', () => {
+		mainWindow.webContents.send('playpause');
+	});
 });
