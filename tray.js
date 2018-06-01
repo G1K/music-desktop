@@ -52,7 +52,11 @@ exports.create = win => {
 		{
 			type: 'separator'
 		}, {
-			role: 'quit'
+			label: 'Quit',
+			click: function () {
+				app.isQuiting = true;
+				app.quit();
+			}
 		}
 	]);
 
