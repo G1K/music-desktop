@@ -29,18 +29,18 @@ function sendTrack() {
 }
 
 function sendState() {
-    ipcRenderer.send('state', externalAPI.isPlaying());
-}
-
-function sendAll() {
-    sendControls();
-    sendTrack();
-    sendState();
+	ipcRenderer.send('state', externalAPI.isPlaying());
 }
 
 window.onload = () => {
     externalAPI.on(externalAPI.EVENT_CONTROLS, sendControls);
     externalAPI.on(externalAPI.EVENT_TRACK, sendTrack);
     externalAPI.on(externalAPI.EVENT_STATE, sendState);
-    externalAPI.on(externalAPI.EVENT_READY, sendAll);
+
+	setTimeout(function () {
+		let playing = externalAPI.isPlaying();
+		if (!playing) {
+			externalAPI.play();
+		}
+	}, 2000);
 };

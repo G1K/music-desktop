@@ -12,6 +12,7 @@ app.on('ready', function () {
 	const mainWindow = new BrowserWindow({
 		width: 1024,
 		height: 768,
+		show: false,
 		title: 'Yandex.Music',
 		icon: path.join(__dirname, 'icon.png'),
 		webPreferences: {
