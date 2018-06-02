@@ -32,6 +32,7 @@ app.on('ready', function () {
 		}
 		return false;
 	});
+
 	mainWindow.on('minimize', function (e) {
 		e.preventDefault();
 		if (process.platform === 'darwin') {
@@ -40,7 +41,6 @@ app.on('ready', function () {
 			mainWindow.hide();
 		}
 	});
-
 
 	tray.create(mainWindow);
 
