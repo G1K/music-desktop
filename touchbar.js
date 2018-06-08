@@ -83,7 +83,9 @@ function embedTouchBar(mainWindow) {
 			body: track.artists[0].title,
             silent: true,
         });
-        n.show()
+        n.show();
+
+        setTimeout(function(){n.close()}, 1000);
     });
 
     ipcMain.on('state', (evt, state) => {

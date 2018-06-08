@@ -4,6 +4,12 @@ ipcRenderer.on('playpause', function(evt, args) {
     externalAPI.togglePause();
 });
 
+ipcRenderer.on('stop', function(evt, args) {
+	if(externalAPI.isPlaying()) {
+		externalAPI.togglePause();
+	}
+});
+
 ipcRenderer.on('next', function(evt, args) {
     externalAPI.next();
 });
