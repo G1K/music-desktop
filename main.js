@@ -1,6 +1,6 @@
 const path        = require('path');
 const tray        = require('./tray');
-const desktopIdle = require('desktop-idle');
+//const desktopIdle = require('desktop-idle');
 let timerId;
 
 const {
@@ -73,7 +73,7 @@ app.on('ready', function () {
 	globalShortcut.register('Super+Alt+Space', () => {
 		mainWindow.webContents.send('playpause');
 	});
-
+/*
 	checkIdle = function () {
 		console.log(desktopIdle.getIdleTime());
 		if (desktopIdle.getIdleTime() > (15 * 60)) {
@@ -81,5 +81,5 @@ app.on('ready', function () {
 		}
 	};
 
-	timerId = setInterval(checkIdle, 30000);
+	timerId = setInterval(checkIdle, 30000);*/
 });

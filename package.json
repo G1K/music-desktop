@@ -1,17 +1,67 @@
 {
   "name": "music-desktop",
+  "description": "Yandex.Music site bundled into an Electron app",
+  "author": {
+    "name": "Contribuors https://github.com/riarheos/music-desktop/graphs/contributors",
+    "email": "email@test.com"
+  },
   "main": "main.js",
   "version": "1.0.1",
-  "dependencies": {
-    "desktop-idle": "^1.1.1",
-    "electron": "^1.8.2-beta.4",
-    "electron-packager": "^10.1.2"
-  },
   "scripts": {
     "start": "electron .",
     "build": "electron-packager . YandexMusic --icon icon",
     "build:osx": "electron-packager . YandexMusic --icon icon --platform darwin",
     "build:win": "electron-packager . YandexMusic --icon icon --platform win32",
-    "build:lin": "electron-packager . YandexMusic --icon icon --platform linux"
+    "build:lin": "electron-packager . YandexMusic --icon icon --platform linux",
+    "release": "build",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder -wl "
+  },
+  "build": {
+    "appId": "yetanother-music-desktop",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "zip",
+        "dmg"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "tar.gz"
+      ],
+      "publish": [
+        "github"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+       "portable",
+        "zip"
+      ],
+      "publish": [
+        "github"
+      ]
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "G1K",
+        "repo": "music-desktop"
+      }
+    ]
+  },
+  "electronCompile": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:G1K/music-desktop.git"
+  },
+  "devDependencies": {
+    "electron": "^2.0.5",
+    "electron-builder": "^20.21.2",
+    "electron-compile": "^6.4.3",
+    "electron-packager": "^10.1.2"
   }
 }
