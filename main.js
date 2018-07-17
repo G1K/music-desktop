@@ -1,27 +1,26 @@
 const path        = require('path');
 const tray        = require('./tray');
-//const desktopIdle = require('desktop-idle');
-let timerId;
-
-const {
-		  app,
+const { app,
 		  BrowserWindow,
-		  globalShortcut
-	  }               = require('electron');
-const {embedTouchBar} = require('./touchbar.js');
+		  globalShortcut } = require('electron');
+const { embedTouchBar } = require('./touchbar.js');
+const config = require('./config/config.js');
+const { showNotifications } = require('./notifications/notificatoins.js');
 
 app.on('ready', function () {
+	const hideMenuBar = config.get("hideMenuBar", false);
 	const mainWindow = new BrowserWindow({
 		width: 1024,
 		height: 768,
-		show: false,
 		title: 'Yandex.Music',
-		icon: path.join(__dirname, 'icon.png'),
+		autoHideMenuBar: hideMenuBar,
+		icon: path.join(app.getAppPath(), 'static/icon.png'),
 		webPreferences: {
 			nodeIntegration: false,
-			preload: path.join(__dirname, 'preload.js')
-		}
+			preload: path.join(__dirname, 'preload.js'),
+		},
 	});
+	require("./menu/mainmenu.js");
 	app.isQuiting    = false;
 
 	mainWindow.on('close', function (e) {
@@ -48,7 +47,12 @@ app.on('ready', function () {
 	tray.create(mainWindow);
 
 	mainWindow.loadURL('https://music.yandex.ru');
-	embedTouchBar(mainWindow);
+
+	showNotifications();
+
+	if (process.platform === 'darwin') {
+		embedTouchBar(mainWindow);
+	}
 
 	globalShortcut.register('mediaplaypause', function () {
 		mainWindow.webContents.send('playpause');
@@ -73,13 +77,5 @@ app.on('ready', function () {
 	globalShortcut.register('Super+Alt+Space', () => {
 		mainWindow.webContents.send('playpause');
 	});
-/*
-	checkIdle = function () {
-		console.log(desktopIdle.getIdleTime());
-		if (desktopIdle.getIdleTime() > (15 * 60)) {
-			mainWindow.webContents.send('stop');
-		}
-	};
 
-	timerId = setInterval(checkIdle, 30000);*/
 });

@@ -1,12 +1,14 @@
 {
   "name": "Yandex.Music",
   "description": "Yandex.Music in electron",
+  "author": {
+    "name": "Contribuors https://github.com/riarheos/music-desktop/graphs/contributors",
+    "email": "email@test.com"
+  },
   "main": "main.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
-    "electron": "^2.0.2",
     "electron-config": "^1.0.0",
-    "electron-installer-debian": "^0.8.1",
     "electron-packager": "^12.1.0"
   },
   "scripts": {
@@ -16,9 +18,57 @@
     "build:win": "electron-packager . YandexMusic --icon static/icon --platform win32",
     "build:lin": "electron-packager . YandexMusic --icon static/icon --platform linux",
     "deb64": "electron-installer-debian --arch amd64 --config debian/config.json",
-    "dmg": "electron-installer-dmg YandexMusic-darwin-x64/YandexMusic.app YandexMusic --out installers/"
+    "dmg": "electron-installer-dmg YandexMusic-darwin-x64/YandexMusic.app YandexMusic --out installers/",
+    "release": "build",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder -wl "
+  },"build": {
+  "appId": "yetanother-music-desktop",
+  "mac": {
+    "category": "public.app-category.utilities",
+    "target": [
+      "zip",
+      "dmg"
+    ]
+  },
+  "linux": {
+    "target": [
+      "deb",
+      "tar.gz"
+    ],
+    "publish": [
+      "github"
+    ]
+  },
+  "win": {
+    "target": [
+      "nsis",
+      "portable",
+      "zip"
+    ],
+    "publish": [
+      "github"
+    ]
+  },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "G1K",
+      "repo": "music-desktop"
+    }
+  ]
+},
+  "electronCompile": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:G1K/music-desktop.git"
   },
   "devDependencies": {
+    "electron": "^2.0.5",
+    "electron-builder": "^20.21.2",
+    "electron-compile": "^6.4.3",
+    "electron-packager": "^10.1.2",
+    "electron-installer-debian": "^0.8.1",
     "electron-installer-dmg": "^1.0.0"
   }
 }

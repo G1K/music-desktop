@@ -18,7 +18,7 @@ exports.create = win => {
 		return;
 	}
 
-	const iconPath = path.join(__dirname, 'icon.png');
+	const iconPath = path.join(__dirname, 'static/icon.png');
 
 	const toggleWin   = () => {
 		// Toggle/untoggle window
